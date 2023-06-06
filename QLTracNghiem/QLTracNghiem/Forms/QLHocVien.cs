@@ -33,7 +33,7 @@ namespace QLTracNghiem.Forms
             txtMaHV.Text = "";
             txtDiaChiHV.Text = "";
             txtSDTHV.Text = "";
-            txtTenHV.Text = "";
+            txtHoLot.Text = "";
             txtMaHV.Focus();
         }
 
@@ -54,21 +54,48 @@ namespace QLTracNghiem.Forms
         {
             if (string.IsNullOrEmpty(txtMaHV.Text))
             {
-                MessageBox.Show("Ma lop khong duoc de trong!");
+                MessageBox.Show("Mã học viên không được để trống!");
                 txtMaHV.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(txtTenHV.Text))
+            if (string.IsNullOrEmpty(txtHoLot.Text))
             {
-                MessageBox.Show("Ten lop khong duoc de trong!");
-                txtTenHV.Focus();
+                MessageBox.Show("Tên học viên không được để trống!");
+                txtHoLot.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(txtSDTHV.Text))
             {
-                MessageBox.Show("Ten giao vien khong duoc de trong!");
+                MessageBox.Show("Số điện thoại không được để trống!");
                 txtSDTHV.Focus();
                 return;
+            }
+
+            // Thêm mã sau các câu lệnh kiểm tra trường thông tin
+            string maHV = txtMaHV.Text;
+            string hoLot = txtHoLot.Text;
+            string tenHV = txtTenHV.Text;
+            string sdtHV = txtSDTHV.Text;
+            string gioiTinh = rbtnNam.Checked ? "Nam" : "Nữ";
+
+            // Thực hiện lưu thông tin học viên vào cơ sở dữ liệu
+            // (Bạn cần thay đổi đoạn mã này để phù hợp với cấu trúc cơ sở dữ liệu của bạn)
+            string query = "INSERT INTO HocVien(MaHV, HoLot, TenHV, SDTHV, Phai) VALUES(@MaHV, @HoLot, @Ten, @SDTHV, @Phai)";
+            SqlCommand command = new SqlCommand(query, connect);
+            command.Parameters.AddWithValue("@MaHV", maHV);
+            command.Parameters.AddWithValue("@HoLot", hoLot);
+            command.Parameters.AddWithValue("@Ten", tenHV);
+            command.Parameters.AddWithValue("@SDTHV", sdtHV);
+            command.Parameters.AddWithValue("@Phai", gioiTinh);
+
+            int result = command.ExecuteNonQuery();
+            if (result > 0)
+            {
+                MessageBox.Show("Thêm học viên thành công!");
+            }
+            else
+            {
+                MessageBox.Show("Thêm học viên thất bại!");
             }
         }
     }
