@@ -17,7 +17,7 @@ namespace QLTracNghiem.Forms
 {
     public partial class QLLopHoc : Form
     {
-        string strConnect = "Data Source=DESKTOP-7EUOQQ8\\BUITANHIEU;Initial Catalog=QLTracNghiem;Integrated Security=True";
+        string strConnect = @"Data Source=Lil-Mason-lap;Initial Catalog=QLTracNghiem;Integrated Security=True";
         SqlConnection connect=null;
         LopHoc lophoc= null;
 
